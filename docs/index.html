@@ -1,64 +1,106 @@
+<!-- elements taken from:
+https://codepen.io/Tibixx/pen/rNaKLZW for background, and
+https://keithclark.co.uk/articles/pure-css-parallax-websites/ for parallax
+-->
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Auber | 3³ Studios</title>
-        <link rel="icon" type="image/png" href="logo.png">
-        <link rel="stylesheet" href="https://use.typekit.net/qui7hwg.css">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <h1>
-            <img src="logo.png" alt="3³ Studios">
-            studios
-        </h1>
-        <h2>Auber</h2>
-        <div id="content">
-            <div id="contents-box">
-                <p>Contents</p>
-            </div>
-            <h3 id="documentation">Documentation</h3>
-            <p><a href="https://threecubedstudios.github.io/auber/">1. Website</a></p>
-            <p><a href="https://drive.google.com/file/d/19mL0lYUe0x36kFN0EL_6EFXPpIeDFjEO/view?usp=sharing">2. Requirements</a></p>
-            <p><a href="https://drive.google.com/file/d/1o3OU8bo39t3wgPPu9OEP6zJ54Z_jM80C/view?usp=sharing">3. Architecture</a></p>
-            <p><a href="https://drive.google.com/file/d/15F284AQQC04MmyVMKJN00smUeKLN2elQ/view?usp=sharing">4. Method Selection and Planning</a></p>
-            <p><a href="https://drive.google.com/file/d/1ltPvR_w1VSTsgzMbm4vs_7V4W8vrjSKT/view?usp=sharing">5. Risk Assessment and Mitigation</a></p>
-            <p><a href="https://drive.google.com/file/d/1TeTnuYcloA17wot_ERS1VvWJNfTBTeg1/view?usp=sharing">6. Implementation</a></p>
-            <p><a href="https://drive.google.com/file/d/1CoxiBXMJBZhhFLvYLqODq_kQNVLN9Uu-/view?usp=sharing">8. Self-Assessment Table</a></p>
-            <h3 id="builds">Builds</h3>
-            <p><a href="https://drive.google.com/file/d/1f8fNV8tfYLLfs8FM5eZCUB1xhqkU53xf/view?usp=sharing">Build 1 [~05/11/2020]</a></p>
-            <p><a href="https://drive.google.com/file/d/1A2wBVNAJdFb2qewvv9756J4JB5l5sBXl/view?usp=sharing">Build 2 [~09/11/2020]</a></p>
-            <p><a href="https://drive.google.com/file/d/1iFtnTSMXIB1KpJzP44aypBQOD58iqgis/view?usp=sharing">Build 3 [~13/10/2020]</a></p>
-            <p><a href="https://drive.google.com/file/d/1ftP52NpTI6Psh4N1CfqCJJ9XugKikcW-/view?usp=sharing">Build 4 [~13/11/2020]</a></p>
-            <p><a href="https://drive.google.com/file/d/1gx-YoMQrlY7F-S93E9_3SXLoxq8Eiue_/view?usp=sharing">Build 5 [~14/11/2020]</a></p>
-            <p><a href="https://drive.google.com/file/d/1b0WwViahdJieSLp-3hllBW_WbkHII0A9/view?usp=sharing">Build 6 [15/11/2020]</a></p>
-            <p><a href="https://drive.google.com/file/d/1KB9dTB3H7jzaiYgokorHxR-agDGJjYHX/view?usp=sharing">Build 7 [23/11/2020]</a></p>
-            <p><a href="https://drive.google.com/file/d/1qX3ZOBYz0F82QzppGx49z7LwMZE-JmbS/view?usp=sharing">Release Candidate 1</a></p>
-            <p><a href="https://drive.google.com/file/d/1Tz0rxqM8xz5jIVdVNi4czY7Xiu7SDz0z/view?usp=sharing">Release Candidate 2</a></p>
-            <p><a href="https://drive.google.com/file/d/1AwTYnpywa2FFz3QveA4Ero6NBj5BisYl/view?usp=sharing">Final Build (Non-scalable)</a></p>
-            <p><a href="https://drive.google.com/file/d/1PKoO4WhdRMGs0WT90f3bEN7uzdTnUX2l/view?usp=sharing">Final Build (Scalable on Linux)</a></p>
-            <h3 id="assessment-documents">Assessment Documents</h3>
-            <p><a href="pdfs/auberbrief.pdf">Auber Brief</a></p>
-            <p><a href="pdfs/assessmentbrief.pdf">Assessment Brief</a></p>
-            <h3 id="javadocs">Javadocs</h3>
-            <p><a href="javadocs/" target="_blank">Javadocs can be found here</a></p>
-            <h3 id="github-repository">GitHub Repository</h3>
-            <p><a href="https://github.com/threecubedstudios/auber" target="_blank">The GitHub repository can be found here</a></p>
-        </div>
-        <script>
-            const contentsBox = document.getElementById('contents-box')
-            const headers = document.querySelectorAll('h3, h4, h5, h6')
 
-            for (var i=0; i<headers.length; i++) {
-                var item = headers[i]
-                if (item.id === '') {
-                    item.id = item.innerHTML.toLowerCase().replace(' ', '-')
-                }
-                var indentation = (parseInt(item.tagName[1]) - 3) * 20
-                contentsBox.innerHTML += '<li style="padding-left: ' + indentation.toString() + 'px"><a href="#' + item.id + '">' + item.innerHTML + '</a></li>'
-            }
-        </script>
-    </body>
+<head>
+    <link rel="stylesheet" type="text/css" href="static/background.css">
+    <title>Auber | Vega</title>
+    <link rel="icon" type="image/png" href="static/8-bit-planets-transparent-png.png">
+    <link rel="stylesheet" href="https://use.typekit.net/qui7hwg.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="parallax">
+        <div id="bacground-parallax" class="parallax__layer parallax__layer--back">
+        
+            <script id="vertSun" type="x-shader/x-vertex">
+                varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }
+            </script>
+            <script id="fragSun" type="x-shader/x-fragment">
+                uniform vec3 color1; uniform vec3 color2; varying vec2 vUv; void main() { gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0); }
+            </script>
+            <script id="fragPlane" type="x-shader/x-fragment">
+                uniform vec3 color1; uniform vec3 color2; varying vec2 vUv; void main() { gl_FragColor = vec4(mix(color1, color2, vUv.x), 1.0); } 
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.min.js"></script>
+            <script src="https://codepen.io/Tibixx/pen/BbBxRG.js"></script>
+            <script src="static/background-render.js"></script>
+        
+        </div>
+        <div class="parallax__layer parallax__layer--base">
+            <div class="titleContainer">
+                <h1>vega<h1>
+                <h2>Auber</h2>
+            </div>
+            <div id="content">
+            <h3 id="documentation">Documentation</h3>
+                <div class="columnContainer">
+                    <div class="column left">
+                        <h4>Assessment 1</h4>
+                        <p><a href="https://threecubedstudios.github.io/auber/">Website</a></p>
+                        <p><a href="https://drive.google.com/file/d/19mL0lYUe0x36kFN0EL_6EFXPpIeDFjEO/view?usp=sharing">Requirements</a></p>
+                        <p><a href="https://drive.google.com/file/d/1o3OU8bo39t3wgPPu9OEP6zJ54Z_jM80C/view?usp=sharing">Architecture</a></p>
+                        <p><a href="https://drive.google.com/file/d/15F284AQQC04MmyVMKJN00smUeKLN2elQ/view?usp=sharing">Method Selection and Planning</a></p>
+                        <p><a href="https://drive.google.com/file/d/1ltPvR_w1VSTsgzMbm4vs_7V4W8vrjSKT/view?usp=sharing">Risk Assessment and Mitigation</a></p>
+                        <p><a href="https://drive.google.com/file/d/1TeTnuYcloA17wot_ERS1VvWJNfTBTeg1/view?usp=sharing">Implementation</a></p>
+                        <p><a href="https://drive.google.com/file/d/1CoxiBXMJBZhhFLvYLqODq_kQNVLN9Uu-/view?usp=sharing">Self-Assessment Table</a></p>
+                    </div>
+                    <div class="column right">
+                        <h4>Assessment 2</h4>
+                        <p><a href="https://York-Vega.github.io/auber-3cubed/docs/">Website</a></p>
+                        <p><a href="https://docs.google.com/document/d/1FhBT6NN5DJmGz921zKDFJbFAwDF6-5LhU1IPv6ptC2k/edit?usp=sharing">Requirements</a></p>
+                        <p><a href="">Architecture</a></p>
+                        <p><a href="">Method Selection and Planning</a></p>
+                        <p><a href="">Risk Assessment and Mitigation</a></p>
+                        <p><a href="https://docs.google.com/document/d/1Seqt-hOOAGgky-1xUe0K0V9pst1e9lg8-CC5l9OlFIU/edit?usp=sharing">Implementation</a></p>
+                        <p><a href="">Self-Assessment Table</a></p>
+                        <p><a href="https://docs.google.com/document/d/1Psxly4EHGBWb4bxkFASKas4IDUYQ83Gr30fm1WbzxUs/edit?usp=sharing">Change Report</a></p>
+                        <p><a href="https://docs.google.com/document/d/1oFDracCjiWnrmn7_NIG0zUnM4pnp5Ys0FBs0QccrMBg/edit?usp=sharing">Continuous Integration</a></p>
+                        <p><a href="https://docs.google.com/document/d/1n-91tdxhgY29TLePx0LgQDBKnUv4MhMPCfsUN4ok27I/edit?usp=sharing">Testing</a></p>
+                    </div>
+                    
+                </div>
+                <h3 id="builds">Builds</h3>
+                <div class="columnContainer">
+                    <div class="column left">
+                        <h4>Assessment 1</h4>
+                        <p><a href="https://drive.google.com/file/d/1f8fNV8tfYLLfs8FM5eZCUB1xhqkU53xf/view?usp=sharing">Build 1 [~05/11/2020]</a></p>
+                        <p><a href="https://drive.google.com/file/d/1A2wBVNAJdFb2qewvv9756J4JB5l5sBXl/view?usp=sharing">Build 2 [~09/11/2020]</a></p>
+                        <p><a href="https://drive.google.com/file/d/1iFtnTSMXIB1KpJzP44aypBQOD58iqgis/view?usp=sharing">Build 3 [~13/10/2020]</a></p>
+                        <p><a href="https://drive.google.com/file/d/1ftP52NpTI6Psh4N1CfqCJJ9XugKikcW-/view?usp=sharing">Build 4 [~13/11/2020]</a></p>
+                        <p><a href="https://drive.google.com/file/d/1gx-YoMQrlY7F-S93E9_3SXLoxq8Eiue_/view?usp=sharing">Build 5 [~14/11/2020]</a></p>
+                        <p><a href="https://drive.google.com/file/d/1b0WwViahdJieSLp-3hllBW_WbkHII0A9/view?usp=sharing">Build 6 [15/11/2020]</a></p>
+                        <p><a href="https://drive.google.com/file/d/1KB9dTB3H7jzaiYgokorHxR-agDGJjYHX/view?usp=sharing">Build 7 [23/11/2020]</a></p>
+                        <p><a href="https://drive.google.com/file/d/1qX3ZOBYz0F82QzppGx49z7LwMZE-JmbS/view?usp=sharing">Release Candidate 1</a></p>
+                        <p><a href="https://drive.google.com/file/d/1Tz0rxqM8xz5jIVdVNi4czY7Xiu7SDz0z/view?usp=sharing">Release Candidate 2</a></p>
+                        <p><a href="https://drive.google.com/file/d/1AwTYnpywa2FFz3QveA4Ero6NBj5BisYl/view?usp=sharing">Final Build (Non-scalable)</a></p>
+                        <p><a href="https://drive.google.com/file/d/1PKoO4WhdRMGs0WT90f3bEN7uzdTnUX2l/view?usp=sharing">Final Build (Scalable on Linux)</a></p>
+                    </div>
+                    <div class="column right">
+                        <h4>Assessment 2</h4>
+                    </div>
+                </div>
+                <h3 id="assessment-documents">Assessment Documents</h3>
+                <p><a href="pdfs/auberbrief.pdf">Auber Brief</a></p>
+                <p><a href="pdfs/assessmentbrief.pdf">Assessment Brief 1</a></p>
+                <p><a href="pdfs/assessmentbrief2.pdf">Assessment Brief 2</a></p>
+                <h3 id="javadocs">Javadocs</h3>
+                <p><a href="javadocs/index.html" target="_blank">Javadocs can be found here</a></p>
+                <h3 id="github-repository">GitHub Repository</h3>
+                <p><a href="https://github.com/threecubedstudios/auber" target="_blank">Old Team</a></p> 
+                <p><a href="https://github.com/York-Vega/auber-3cubed" target="_blank">New Team</a></p>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

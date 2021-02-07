@@ -1,0 +1,35 @@
+/* src https://codepen.io/Tibixx/pen/rNaKLZW */
+
+.parallax {
+    perspective: 1px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+
+.parallax::-webkit-scrollbar {
+    display: none;
+}
+
+.parallax__layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.parallax__layer--base {
+    transform: translateZ(0) scale(1);
+}
+
+.parallax__layer--back {
+    transform: translateZ(-1px) scale(2);
+}
