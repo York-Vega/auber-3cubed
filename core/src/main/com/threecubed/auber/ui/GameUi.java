@@ -144,7 +144,7 @@ public class GameUi {
   private void drawSystemWarnings(World world, SpriteBatch screenBatch) {
     screenBatch.begin();
     int offset = 0;
-    for (RectangleMapObject system : world.systems) {
+    for (RectangleMapObject system : World.systems) {
       Rectangle systemRectangle = system.getRectangle();
       Vector2 systemAngleVector = new Vector2(systemRectangle.getX() - world.player.position.x,
                                               systemRectangle.getY() - world.player.position.y);

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 import com.threecubed.auber.Difficulty;
 import com.threecubed.auber.Utils;
 import com.threecubed.auber.World;
+import com.threecubed.auber.screens.MenuScreen;
 
 
 /**
@@ -34,7 +35,10 @@ public class Infiltrator extends Npc {
    * */
   public Infiltrator(float x, float y, World world) {
     super(x, y, world);
-    navigateToRandomSystem(world);
+    if (!MenuScreen.continueGame) {
+      navigateToRandomSystem(world);
+    }
+
 
   }
 
@@ -83,6 +87,8 @@ public class Infiltrator extends Npc {
       if (system != null) {
         Rectangle boundingBox = system.getRectangle();
         world.updateSystemState(boundingBox.x, boundingBox.y, World.SystemStates.WORKING);
+        String systemPosition = String.valueOf(boundingBox.x) + "/" + String.valueOf(boundingBox.y);
+        World.systemStatesMap.put(systemPosition, World.SystemStates.WORKING);
       }
     }
 
@@ -130,7 +136,9 @@ public class Infiltrator extends Npc {
     if (system != null) {
       world.updateSystemState(system.getRectangle().getX(), system.getRectangle().getY(),
           World.SystemStates.ATTACKED);
-
+      String positionX = String.valueOf(system.getRectangle().getX());
+      String positionY = String.valueOf(system.getRectangle().getY());
+      World.systemStatesMap.put(positionX + "/" + positionY, World.SystemStates.ATTACKED);
       npcTimer.scheduleTask(new Task() {
         @Override
         public void run() {
@@ -164,7 +172,7 @@ public class Infiltrator extends Npc {
     }
     Circle infiltratorSight = new Circle(position, World.INFILTRATOR_SIGHT_RANGE);
     if (infiltratorSight.contains(world.player.position)) {
-      return true;
+      return true && !world.player.invisible;
     }
     return false;
   }

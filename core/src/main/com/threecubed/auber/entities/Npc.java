@@ -33,7 +33,7 @@ public abstract class Npc extends GameEntity {
 
   private static String[] textureNames = {"alienA", "alienB", "alienC"};
 
-  protected States state = States.IDLE;
+  public States state = States.IDLE;
 
   public enum States {
     IDLE,
@@ -95,6 +95,9 @@ public abstract class Npc extends GameEntity {
    * */
   protected void stepTowardsTarget(World world) {
     if (aiEnabled) {
+      if (currentPath.size() == 0) {
+        return;
+      }
       Vector2 targetCoordinates = currentPath.get(0);
       Vector2 currentDirection = getCurrentDirection();
 
@@ -189,11 +192,11 @@ public abstract class Npc extends GameEntity {
    * */
 
   protected void navigateToRandomSystem(World world) {
-    if (!world.systems.isEmpty()) {
+    if (!World.systems.isEmpty()) {
       state = States.NAVIGATING;
-      RectangleMapObject system = world.systems.get(
+      RectangleMapObject system = World.systems.get(
           Utils.randomIntInRange(world.randomNumberGenerator,
-            0, world.systems.size() - 1));
+            0, World.systems.size() - 1));
 
       updatePath(system.getRectangle().getX(), system.getRectangle().getY(), world);
     }
