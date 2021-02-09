@@ -1,0 +1,153 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Button</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.threecubed.auber.ui</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Button (com.threecubed.auber.ui)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Button</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.threecubed.auber.ui;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i>4</i>&nbsp;import com.badlogic.gdx.Input;
+<i>5</i>&nbsp;import com.badlogic.gdx.graphics.Pixmap;
+<i>6</i>&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+<i>7</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i>8</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i>9</i>&nbsp;import com.threecubed.auber.AuberGame;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * Render a button and also handle the pressing of said button.
+<i>14</i>&nbsp; *
+<i>15</i>&nbsp; * @author Joseph Krystek-Walton
+<i>16</i>&nbsp; * @version 1.0
+<i>17</i>&nbsp; * @since 1.0
+<i>18</i>&nbsp; * */
+<i>19</i>&nbsp;public class Button {
+<i>20</i>&nbsp;  Sprite sprite;
+<i>21</i>&nbsp;  Pixmap pixmap;
+<i>22</i>&nbsp;  AuberGame game;
+<i>23</i>&nbsp;  Vector2 position;
+<i>24</i>&nbsp;  Runnable onClick;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;  /**
+<i>27</i>&nbsp;   * Instantiate a button at a given position with a given scale and texture.
+<i>28</i>&nbsp;   * Pass the game object so that the button&#39;s action can be configured.
+<i>29</i>&nbsp;   *
+<i>30</i>&nbsp;   * @param position The position to render the center of the button at
+<i>31</i>&nbsp;   * @param scale The scale to render the button with
+<i>32</i>&nbsp;   * @param sprite The sprite of the button
+<i>33</i>&nbsp;   * @param game The game object
+<i>34</i>&nbsp;   * @param onClick The code to execute when the button is pressed wrapped in a {@link Runnable}
+<i>35</i>&nbsp;   * */
+<b class="nc"><i>36</i>&nbsp;  public Button(Vector2 position, float scale, Sprite sprite, AuberGame game, Runnable onClick) {</b>
+<b class="nc"><i>37</i>&nbsp;    this.sprite = sprite;</b>
+<b class="nc"><i>38</i>&nbsp;    this.onClick = onClick;</b>
+<i>39</i>&nbsp;
+<b class="nc"><i>40</i>&nbsp;    sprite.setScale(scale);</b>
+<b class="nc"><i>41</i>&nbsp;    sprite.setPosition(position.x - (sprite.getWidth() / 2), position.y - (sprite.getHeight() / 2));</b>
+<i>42</i>&nbsp;
+<b class="nc"><i>43</i>&nbsp;    this.position = new Vector2(sprite.getX(), sprite.getY());</b>
+<b class="nc"><i>44</i>&nbsp;    this.game = game;</b>
+<i>45</i>&nbsp;  }
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;  public void setSprite(Sprite sprite) {
+<b class="nc"><i>48</i>&nbsp;    this.sprite = sprite;</b>
+<b class="nc"><i>49</i>&nbsp;    sprite.setPosition(position.x , position.y);</b>
+<i>50</i>&nbsp;  }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;  /**
+<i>53</i>&nbsp;   * Render the button at the provided position and scale to the given {@link SpriteBatch}.
+<i>54</i>&nbsp;   *
+<i>55</i>&nbsp;   * @param spriteBatch The sprite batch to render the button to
+<i>56</i>&nbsp;   * */
+<i>57</i>&nbsp;  public void render(SpriteBatch spriteBatch) {
+<b class="nc"><i>58</i>&nbsp;    sprite.draw(spriteBatch);</b>
+<i>59</i>&nbsp;
+<b class="nc"><i>60</i>&nbsp;    if (sprite.getBoundingRectangle().contains(Gdx.input.getX(),</b>
+<b class="nc"><i>61</i>&nbsp;          Gdx.graphics.getHeight() - Gdx.input.getY())) {</b>
+<b class="nc"><i>62</i>&nbsp;      sprite.setScale(1.05f);</b>
+<b class="nc"><i>63</i>&nbsp;      if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {</b>
+<b class="nc"><i>64</i>&nbsp;        onClick.run();</b>
+<i>65</i>&nbsp;      }
+<i>66</i>&nbsp;    } else {
+<b class="nc"><i>67</i>&nbsp;      sprite.setScale(1.0f);</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;  }
+<i>70</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-02-09 23:05</div>
+</div>
+</body>
+</html>

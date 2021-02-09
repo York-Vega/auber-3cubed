@@ -1,0 +1,289 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PowerUp</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.threecubed.auber</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PowerUp (com.threecubed.auber)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PowerUp</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95.2%
+  </span>
+  <span class="absValue">
+    (59/ 62)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">PowerUp$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">PowerUp$Type</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/ 10)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (10/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.5%
+  </span>
+  <span class="absValue">
+    (69/ 73)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.threecubed.auber;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i>4</i>&nbsp;import com.threecubed.auber.entities.GameEntity;
+<i>5</i>&nbsp;import com.threecubed.auber.entities.Infiltrator;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * power ups which change aspects of the game for a period of time.
+<i>9</i>&nbsp; * depending on the type of power up
+<i>10</i>&nbsp; * activated when the player steps on a specific tile
+<i>11</i>&nbsp; *
+<i>12</i>&nbsp; * @author Matt Rogan, Lewis McKenzie
+<i>13</i>&nbsp; * @version 1.1
+<i>14</i>&nbsp; * @since 1.1
+<i>15</i>&nbsp; * */
+<i>16</i>&nbsp;public class PowerUp extends GameEntity {
+<i>17</i>&nbsp;  /** Identifies the type of power up. */
+<b class="fc"><i>18</i>&nbsp;  public enum Type {</b>
+<b class="fc"><i>19</i>&nbsp;    IMMUNITY(0),</b>
+<b class="fc"><i>20</i>&nbsp;    INVISIBILITY(1),</b>
+<b class="fc"><i>21</i>&nbsp;    FIREWALL(2),</b>
+<b class="fc"><i>22</i>&nbsp;    SPEED(3),</b>
+<b class="fc"><i>23</i>&nbsp;    DETECT(4);</b>
+<i>24</i>&nbsp;    private int value;
+<b class="fc"><i>25</i>&nbsp;    private Type(int value) {</b>
+<b class="fc"><i>26</i>&nbsp;      this.value = value;</b>
+<b class="fc"><i>27</i>&nbsp;    } </b>
+<i>28</i>&nbsp;    public int getValue() {
+<b class="nc"><i>29</i>&nbsp;      return value; </b>
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;  }
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;  private Type powerType;
+<i>34</i>&nbsp;  private float duration;
+<i>35</i>&nbsp;  private float timer;
+<i>36</i>&nbsp;  private boolean active;
+<i>37</i>&nbsp;  private boolean used;
+<b class="fc"><i>38</i>&nbsp;  private static String[] spriteNames = {&quot;Immunity&quot;, &quot;Invisible&quot;, &quot;Firewalll&quot;, &quot;Speed_Increase&quot;, &quot;HighlightsInfiltrators&quot;};</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;  /** 
+<i>41</i>&nbsp;   * Initialises power up.
+<i>42</i>&nbsp;   *
+<i>43</i>&nbsp;   * @param x The x coordinate.
+<i>44</i>&nbsp;   * @param y The y coordinate.
+<i>45</i>&nbsp;   * @param world the world the power up will inhibit.
+<i>46</i>&nbsp;   * @param powerType the type of power up it is.  
+<i>47</i>&nbsp;  */
+<i>48</i>&nbsp;  public PowerUp(final float x, final float y, final World world, final Type powerType) {
+<b class="fc"><i>49</i>&nbsp;    super(x, y, world.atlas.createSprite(spriteNames[powerType.value]));</b>
+<b class="fc"><i>50</i>&nbsp;    this.powerType = powerType;</b>
+<b class="fc"><i>51</i>&nbsp;    duration = 10f;</b>
+<b class="fc"><i>52</i>&nbsp;    active = false;</b>
+<b class="fc"><i>53</i>&nbsp;    used = false;</b>
+<b class="fc"><i>54</i>&nbsp;  }</b>
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;  /** 
+<i>57</i>&nbsp;   * Activates the power up.
+<i>58</i>&nbsp;   *
+<i>59</i>&nbsp;   * @param world the world the power up inhibits.
+<i>60</i>&nbsp;  */
+<i>61</i>&nbsp;  public final void activate(final World world) {
+<b class="fc"><i>62</i>&nbsp;    active = true;</b>
+<b class="fc"><i>63</i>&nbsp;    timer = duration;</b>
+<b class="fc"><i>64</i>&nbsp;    this.sprite.setAlpha(0f);</b>
+<b class="fc"><i>65</i>&nbsp;    switch (powerType) {</b>
+<i>66</i>&nbsp;      case IMMUNITY:
+<b class="fc"><i>67</i>&nbsp;        world.player.immune = true;</b>
+<b class="fc"><i>68</i>&nbsp;        break;</b>
+<i>69</i>&nbsp;      case INVISIBILITY:
+<b class="fc"><i>70</i>&nbsp;        world.player.invisible = true;</b>
+<b class="fc"><i>71</i>&nbsp;        world.player.sprite.setAlpha(0.5f);</b>
+<b class="fc"><i>72</i>&nbsp;        break;</b>
+<i>73</i>&nbsp;      case FIREWALL:
+<b class="fc"><i>74</i>&nbsp;        Infiltrator.canSabotage = false;</b>
+<b class="fc"><i>75</i>&nbsp;        world.player.firewall = true;</b>
+<b class="fc"><i>76</i>&nbsp;        break;</b>
+<i>77</i>&nbsp;      case SPEED:
+<b class="fc"><i>78</i>&nbsp;        world.player.speed *= 1.5;</b>
+<b class="fc"><i>79</i>&nbsp;        world.player.speedUp = true;</b>
+<b class="fc"><i>80</i>&nbsp;        break;</b>
+<i>81</i>&nbsp;      case DETECT:
+<b class="fc"><i>82</i>&nbsp;      world.player.detect = true;</b>
+<b class="fc"><i>83</i>&nbsp;        for (GameEntity e : world.getEntities()) {</b>
+<b class="fc"><i>84</i>&nbsp;          if (e instanceof Infiltrator) {</b>
+<b class="fc"><i>85</i>&nbsp;            ((Infiltrator) e).expose(world);</b>
+<i>86</i>&nbsp;          }
+<b class="fc"><i>87</i>&nbsp;        }</b>
+<b class="fc"><i>88</i>&nbsp;        break;</b>
+<i>89</i>&nbsp;      default:
+<i>90</i>&nbsp;        break;
+<i>91</i>&nbsp;    }
+<b class="fc"><i>92</i>&nbsp;  }</b>
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;  /** 
+<i>95</i>&nbsp;   * Updates the power up.
+<i>96</i>&nbsp;   * To be called every frame.
+<i>97</i>&nbsp;   *
+<i>98</i>&nbsp;   * @param world the world the power up inhibits.
+<i>99</i>&nbsp;  */
+<i>100</i>&nbsp;  @Override
+<i>101</i>&nbsp;  public final void update(final World world) {
+<i>102</i>&nbsp;    // Assuming timeStep is 1/60 (FPS)
+<b class="fc"><i>103</i>&nbsp;    if (active) {</b>
+<b class="nc"><i>104</i>&nbsp;      timer -= 1 / 60f;</b>
+<b class="nc"><i>105</i>&nbsp;      if (timer &lt;= 0) {</b>
+<b class="nc"><i>106</i>&nbsp;        deactivate(world);</b>
+<i>107</i>&nbsp;      }
+<b class="fc"><i>108</i>&nbsp;    } else if (!used) {</b>
+<b class="fc"><i>109</i>&nbsp;      Vector2 playerPosition = world.player.position; // (x,y) component</b>
+<i>110</i>&nbsp;
+<b class="fc"><i>111</i>&nbsp;      int[] tileMapCoords = world.navigationMesh.getTilemapCoordinates(position.x, position.y);</b>
+<b class="fc"><i>112</i>&nbsp;      int[] playerCoords = world.navigationMesh.getTilemapCoordinates(playerPosition.x, </b>
+<i>113</i>&nbsp;      playerPosition.y);
+<i>114</i>&nbsp;
+<b class="fc"><i>115</i>&nbsp;      if ((tileMapCoords[0] == playerCoords[0]) &amp;&amp; (tileMapCoords[1] == playerCoords[1])) {</b>
+<b class="fc"><i>116</i>&nbsp;        activate(world);</b>
+<i>117</i>&nbsp;      }
+<i>118</i>&nbsp;    }
+<b class="fc"><i>119</i>&nbsp;  }</b>
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;  /** 
+<i>122</i>&nbsp;   * Deactivates the power up.
+<i>123</i>&nbsp;   * called 10 seconds after being activated.
+<i>124</i>&nbsp;   *
+<i>125</i>&nbsp;   * @param world the world the power up inhibits.
+<i>126</i>&nbsp;  */
+<i>127</i>&nbsp;  public final void deactivate(final World world) {
+<b class="fc"><i>128</i>&nbsp;    active = false;</b>
+<b class="fc"><i>129</i>&nbsp;    used = true;</b>
+<b class="fc"><i>130</i>&nbsp;    switch (powerType) {</b>
+<i>131</i>&nbsp;      case IMMUNITY:
+<b class="fc"><i>132</i>&nbsp;        world.player.immune = false;</b>
+<b class="fc"><i>133</i>&nbsp;        break;</b>
+<i>134</i>&nbsp;      case INVISIBILITY:
+<b class="fc"><i>135</i>&nbsp;        world.player.invisible = false;</b>
+<b class="fc"><i>136</i>&nbsp;        world.player.sprite.setAlpha(1f);</b>
+<b class="fc"><i>137</i>&nbsp;        break;</b>
+<i>138</i>&nbsp;      case FIREWALL:
+<b class="fc"><i>139</i>&nbsp;        Infiltrator.canSabotage = true;</b>
+<b class="fc"><i>140</i>&nbsp;        world.player.firewall = false;</b>
+<b class="fc"><i>141</i>&nbsp;        break;</b>
+<i>142</i>&nbsp;      case SPEED:
+<b class="fc"><i>143</i>&nbsp;        world.player.speed /= 1.5;</b>
+<b class="fc"><i>144</i>&nbsp;        world.player.speedUp = false; </b>
+<b class="fc"><i>145</i>&nbsp;        break;</b>
+<i>146</i>&nbsp;      case DETECT:
+<b class="fc"><i>147</i>&nbsp;      world.player.detect = false;</b>
+<b class="fc"><i>148</i>&nbsp;        for (GameEntity e : world.getEntities()) {</b>
+<b class="fc"><i>149</i>&nbsp;          if (e instanceof Infiltrator) {</b>
+<b class="fc"><i>150</i>&nbsp;            ((Infiltrator) e).unexpose(world);</b>
+<i>151</i>&nbsp;          }
+<b class="fc"><i>152</i>&nbsp;        }</b>
+<b class="fc"><i>153</i>&nbsp;        break;</b>
+<i>154</i>&nbsp;      default:
+<i>155</i>&nbsp;        break;
+<i>156</i>&nbsp;    }
+<b class="fc"><i>157</i>&nbsp;  }</b>
+<i>158</i>&nbsp;  public boolean isActive() {
+<b class="fc"><i>159</i>&nbsp;    return this.active;</b>
+<i>160</i>&nbsp;  }
+<i>161</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-02-09 23:05</div>
+</div>
+</body>
+</html>

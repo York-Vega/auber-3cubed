@@ -1,0 +1,248 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GameScreen</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.threecubed.auber.screens</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GameScreen (com.threecubed.auber.screens)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 75)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.threecubed.auber.screens;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i>4</i>&nbsp;import com.badlogic.gdx.Input;
+<i>5</i>&nbsp;import com.badlogic.gdx.ScreenAdapter;
+<i>6</i>&nbsp;import com.badlogic.gdx.graphics.GL20;
+<i>7</i>&nbsp;import com.badlogic.gdx.graphics.g2d.Batch;
+<i>8</i>&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+<i>9</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i>10</i>&nbsp;import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+<i>11</i>&nbsp;import com.threecubed.auber.AuberGame;
+<i>12</i>&nbsp;import com.threecubed.auber.DataManager;
+<i>13</i>&nbsp;import com.threecubed.auber.Difficulty;
+<i>14</i>&nbsp;import com.threecubed.auber.World;
+<i>15</i>&nbsp;import com.threecubed.auber.entities.Civilian;
+<i>16</i>&nbsp;import com.threecubed.auber.entities.GameEntity;
+<i>17</i>&nbsp;import com.threecubed.auber.entities.Infiltrator;
+<i>18</i>&nbsp;import com.threecubed.auber.entities.Player;
+<i>19</i>&nbsp;import com.threecubed.auber.ui.GameUi;
+<i>20</i>&nbsp;import java.util.HashMap;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;/**
+<i>24</i>&nbsp; * The main screen of the game, responsible for rendering entities and executing their functions.
+<i>25</i>&nbsp; *
+<i>26</i>&nbsp; * @author Daniel O&#39;Brien
+<i>27</i>&nbsp; * @version 1.1
+<i>28</i>&nbsp; * @since 1.0
+<i>29</i>&nbsp; * */
+<i>30</i>&nbsp;public class GameScreen extends ScreenAdapter {
+<i>31</i>&nbsp;  public World world;
+<i>32</i>&nbsp;  public AuberGame game;
+<i>33</i>&nbsp;  public DataManager dataManager;
+<i>34</i>&nbsp;  public static HashMap&lt;Infiltrator, Integer&gt; enemyTrack;
+<i>35</i>&nbsp;  public static HashMap&lt;Infiltrator, Boolean&gt; enemyExposed;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;  Sprite stars;
+<i>38</i>&nbsp;
+<b class="nc"><i>39</i>&nbsp;  SpriteBatch screenBatch = new SpriteBatch();</b>
+<i>40</i>&nbsp;  GameUi ui;
+<i>41</i>&nbsp;
+<b class="nc"><i>42</i>&nbsp;  int workingSystems = 0;</b>
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;  /**
+<i>45</i>&nbsp;   * Initialise the game screen with the {@link AuberGame} object and add a few entities.
+<i>46</i>&nbsp;   *
+<i>47</i>&nbsp;   * @param game The game object
+<i>48</i>&nbsp;   * @param demoMode Whether the game should run in demo mode
+<i>49</i>&nbsp;   * */
+<b class="nc"><i>50</i>&nbsp;  public GameScreen(AuberGame game, boolean demoMode, Difficulty.Mode difficulty) {</b>
+<b class="nc"><i>51</i>&nbsp;    this.game = game;</b>
+<b class="nc"><i>52</i>&nbsp;    Difficulty.load(difficulty);</b>
+<b class="nc"><i>53</i>&nbsp;    ui = new GameUi(game);</b>
+<i>54</i>&nbsp;
+<b class="nc"><i>55</i>&nbsp;    world = new World(game, demoMode);</b>
+<b class="nc"><i>56</i>&nbsp;    dataManager = new DataManager(&quot;aubergame&quot;);</b>
+<b class="nc"><i>57</i>&nbsp;    enemyTrack = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>58</i>&nbsp;    enemyExposed = new HashMap&lt;&gt;();</b>
+<i>59</i>&nbsp;
+<b class="nc"><i>60</i>&nbsp;    for (int i = 0; i &lt; World.MAX_INFILTRATORS_IN_GAME; i++) {</b>
+<b class="nc"><i>61</i>&nbsp;      if (MenuScreen.continueGame) {</b>
+<b class="nc"><i>62</i>&nbsp;        Infiltrator enemy = dataManager.loadInfiltratorData(world, i);</b>
+<b class="nc"><i>63</i>&nbsp;        world.queueEntityAdd(enemy);</b>
+<b class="nc"><i>64</i>&nbsp;        enemyTrack.put(enemy, i);</b>
+<b class="nc"><i>65</i>&nbsp;        enemyExposed.put(enemy, false);</b>
+<b class="nc"><i>66</i>&nbsp;      } else {</b>
+<b class="nc"><i>67</i>&nbsp;        world.queueEntityAdd(new Infiltrator(world));</b>
+<i>68</i>&nbsp;      }
+<b class="nc"><i>69</i>&nbsp;      world.infiltratorsAddedCount++;</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;
+<b class="nc"><i>72</i>&nbsp;    for (int i = 0; i &lt; World.NPC_COUNT; i++) {</b>
+<i>73</i>&nbsp;      // TO DO: load civilian data
+<b class="nc"><i>74</i>&nbsp;      world.queueEntityAdd(new Civilian(world));</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<b class="nc"><i>77</i>&nbsp;    stars = game.atlas.createSprite(&quot;stars&quot;);</b>
+<b class="nc"><i>78</i>&nbsp;  }</b>
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;  @Override
+<i>81</i>&nbsp;  public void render(float delta) {
+<i>82</i>&nbsp;
+<b class="nc"><i>83</i>&nbsp;    if (Gdx.input.isKeyPressed(Input.Keys.Y)) {</b>
+<b class="nc"><i>84</i>&nbsp;      save();</b>
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;
+<b class="nc"><i>87</i>&nbsp;    if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {</b>
+<b class="nc"><i>88</i>&nbsp;      game.setScreen(new MenuScreen(game));</b>
+<i>89</i>&nbsp;    }
+<i>90</i>&nbsp;    // Add any queued entities
+<b class="nc"><i>91</i>&nbsp;    world.updateEntities();</b>
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    // Set the background color
+<b class="nc"><i>94</i>&nbsp;    Gdx.gl.glClearColor(0, 0, 0, 1);</b>
+<b class="nc"><i>95</i>&nbsp;    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</b>
+<i>96</i>&nbsp;
+<b class="nc"><i>97</i>&nbsp;    screenBatch.begin();</b>
+<b class="nc"><i>98</i>&nbsp;    screenBatch.draw(stars, 0, 0);</b>
+<b class="nc"><i>99</i>&nbsp;    screenBatch.end();</b>
+<i>100</i>&nbsp;
+<b class="nc"><i>101</i>&nbsp;    OrthogonalTiledMapRenderer renderer = world.renderer;</b>
+<b class="nc"><i>102</i>&nbsp;    renderer.setView(world.camera);</b>
+<b class="nc"><i>103</i>&nbsp;    renderer.render(world.backgroundLayersIds);</b>
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;
+<b class="nc"><i>106</i>&nbsp;    Batch batch = renderer.getBatch();</b>
+<i>107</i>&nbsp;    // Iterate over all entities. Perform movement logic and render them.
+<b class="nc"><i>108</i>&nbsp;    batch.begin();</b>
+<b class="nc"><i>109</i>&nbsp;    world.infiltratorCount = 0;</b>
+<b class="nc"><i>110</i>&nbsp;    for (GameEntity entity : world.getEntities()) {</b>
+<b class="nc"><i>111</i>&nbsp;      entity.update(world);</b>
+<b class="nc"><i>112</i>&nbsp;      entity.render(batch, world.camera);</b>
+<i>113</i>&nbsp;
+<b class="nc"><i>114</i>&nbsp;      if (entity instanceof Player) {</b>
+<b class="nc"><i>115</i>&nbsp;        world.camera.position.set(entity.position.x, entity.position.y, 0);</b>
+<b class="nc"><i>116</i>&nbsp;        world.camera.update();</b>
+<b class="nc"><i>117</i>&nbsp;      } else if (entity instanceof Infiltrator) {</b>
+<b class="nc"><i>118</i>&nbsp;        Infiltrator infiltrator = (Infiltrator) entity;</b>
+<b class="nc"><i>119</i>&nbsp;        if (infiltrator.aiEnabled) {</b>
+<b class="nc"><i>120</i>&nbsp;          world.infiltratorCount += 1;</b>
+<i>121</i>&nbsp;        }
+<i>122</i>&nbsp;      }
+<b class="nc"><i>123</i>&nbsp;    }</b>
+<b class="nc"><i>124</i>&nbsp;    batch.end();</b>
+<b class="nc"><i>125</i>&nbsp;    renderer.render(world.foregroundLayersIds);</b>
+<i>126</i>&nbsp;
+<b class="nc"><i>127</i>&nbsp;    if (world.infiltratorCount &lt; World.MAX_INFILTRATORS_IN_GAME</b>
+<i>128</i>&nbsp;        &amp;&amp; world.infiltratorsAddedCount &lt; World.MAX_INFILTRATORS) {
+<b class="nc"><i>129</i>&nbsp;      Infiltrator newInfiltrator = new Infiltrator(world);</b>
+<b class="nc"><i>130</i>&nbsp;      enemyTrack.put(newInfiltrator, world.infiltratorsAddedCount);</b>
+<b class="nc"><i>131</i>&nbsp;      while (newInfiltrator.entityOnScreen(world)) {</b>
+<b class="nc"><i>132</i>&nbsp;        newInfiltrator.moveToRandomLocation(world);</b>
+<i>133</i>&nbsp;      }
+<b class="nc"><i>134</i>&nbsp;      world.queueEntityAdd(newInfiltrator);</b>
+<b class="nc"><i>135</i>&nbsp;      world.infiltratorsAddedCount++;</b>
+<i>136</i>&nbsp;    }
+<i>137</i>&nbsp;
+<i>138</i>&nbsp;    // Draw the UI
+<b class="nc"><i>139</i>&nbsp;    ui.render(world, screenBatch);</b>
+<b class="nc"><i>140</i>&nbsp;    world.checkForEndState();</b>
+<b class="nc"><i>141</i>&nbsp;  }</b>
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;  @Override
+<i>144</i>&nbsp;  public void dispose() {
+<b class="nc"><i>145</i>&nbsp;    world.renderer.dispose();</b>
+<b class="nc"><i>146</i>&nbsp;  }</b>
+<i>147</i>&nbsp;
+<i>148</i>&nbsp;  /**
+<i>149</i>&nbsp;   * save all entities&#39; data
+<i>150</i>&nbsp;   *
+<i>151</i>&nbsp;   * */
+<i>152</i>&nbsp;  public void save(){
+<b class="nc"><i>153</i>&nbsp;    dataManager.preferences.putString(&quot;markForSaving&quot;,&quot;saved&quot;);</b>
+<b class="nc"><i>154</i>&nbsp;    dataManager.saveInfiltratorData();</b>
+<b class="nc"><i>155</i>&nbsp;    dataManager.savePlayerData(world);</b>
+<b class="nc"><i>156</i>&nbsp;    dataManager.saveSystemData();</b>
+<b class="nc"><i>157</i>&nbsp;    MenuScreen.continueGame = false;</b>
+<b class="nc"><i>158</i>&nbsp;    World.systemStatesMap.clear();</b>
+<b class="nc"><i>159</i>&nbsp;    World.systems.clear();</b>
+<b class="nc"><i>160</i>&nbsp;    world.infiltratorCount = 0;</b>
+<b class="nc"><i>161</i>&nbsp;    world.infiltratorsAddedCount = 0;</b>
+<b class="nc"><i>162</i>&nbsp;    game.setScreen(new MenuScreen(game));</b>
+<b class="nc"><i>163</i>&nbsp;  }</b>
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-02-09 23:05</div>
+</div>
+</body>
+</html>
