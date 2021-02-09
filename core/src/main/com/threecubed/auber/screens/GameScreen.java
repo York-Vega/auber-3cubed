@@ -81,16 +81,7 @@ public class GameScreen extends ScreenAdapter {
   public void render(float delta) {
 
     if (Gdx.input.isKeyPressed(Input.Keys.Y)) {
-      dataManager.saveInfiltratorData();
-      dataManager.savePlayerData(world);
-      dataManager.saveSystemData();
-      MenuScreen.continueGame = false;
-      World.systemStatesMap.clear();
-      World.systems.clear();
-      world.infiltratorCount = 0;
-      world.infiltratorsAddedCount = 0;
-      game.setScreen(new MenuScreen(game));
-
+      save();
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
@@ -153,4 +144,22 @@ public class GameScreen extends ScreenAdapter {
   public void dispose() {
     world.renderer.dispose();
   }
+
+  /**
+   * save all entities' data
+   *
+   * */
+  public void save(){
+    dataManager.preferences.putString("markForSaving","saved");
+    dataManager.saveInfiltratorData();
+    dataManager.savePlayerData(world);
+    dataManager.saveSystemData();
+    MenuScreen.continueGame = false;
+    World.systemStatesMap.clear();
+    World.systems.clear();
+    world.infiltratorCount = 0;
+    world.infiltratorsAddedCount = 0;
+    game.setScreen(new MenuScreen(game));
+  }
+
 }

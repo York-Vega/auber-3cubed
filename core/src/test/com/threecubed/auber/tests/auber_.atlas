@@ -1,0 +1,172 @@
+auber-0.png
+size: 1000, 1802
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+alienA
+  rotate: false
+  xy: 8, 0
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+alienB
+  rotate: false
+  xy: 22, 0
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+alienC
+  rotate: false
+  xy: 36, 0
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+arrow
+  rotate: false
+  xy: 78, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+arrow2
+  rotate: false
+  xy: 94, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+auber_logo
+  rotate: false
+  xy: 0, 1159
+  size: 1000, 643
+  orig: 1000, 643
+  offset: 0, 0
+  index: -1
+continueButton
+  rotate: false
+  xy: 302, 0
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+demoButton
+  rotate: false
+  xy: 602, 0
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+easyButton
+  rotate: false
+  xy: 0, 100
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+Firewalll
+  rotate: false
+  xy: 110, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+hardButton
+  rotate: false
+  xy: 300, 100
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+HighlightsInfiltrators
+  rotate: false
+  xy: 142, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Immunity
+  rotate: false
+  xy: 174, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+infiltrator
+  rotate: false
+  xy: 50, 0
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+instructions
+  rotate: false
+  xy: 0, 300
+  size: 862, 859
+  orig: 862, 859
+  offset: 0, 0
+  index: -1
+Invisible
+  rotate: false
+  xy: 206, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Invisible2
+  rotate: false
+  xy: 238, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+mediumButton
+  rotate: false
+  xy: 600, 100
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+playButton
+  rotate: false
+  xy: 0, 200
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 64, 0
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+projectile
+  rotate: false
+  xy: 0, 0
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+Speed_Increase
+  rotate: false
+  xy: 270, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+auber-1.png
+size: 1920, 1080
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+stars
+  rotate: false
+  xy: 0, 0
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: -1

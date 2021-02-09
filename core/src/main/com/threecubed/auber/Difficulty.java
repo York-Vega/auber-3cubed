@@ -10,14 +10,22 @@ package com.threecubed.auber;
  * */
 public abstract class Difficulty {
   public enum Mode {
-    EASY,
-    MEDIUM,
-    HARD {
+    EASY(0),
+    MEDIUM(1),
+    HARD(2) {
       @Override
       public Mode next() {
         return Mode.EASY;
       };
     };
+    
+    private int value;
+    private Mode(int value) {
+      this.value = value;
+    } 
+    public int getValue() {
+      return value; 
+    }
     public Mode next() {
       return values()[ordinal() + 1];
     }

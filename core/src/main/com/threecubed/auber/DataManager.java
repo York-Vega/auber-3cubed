@@ -109,11 +109,9 @@ public class DataManager {
       float infiltratorPositionX = entry.getKey().position.x;
       float infiltratorPositionY = entry.getKey().position.y;
       Integer infiltratorNo = entry.getValue();
-      String infiltratorsState = entry.getKey().getState().toString();
       boolean exposed = entry.getKey().exposed;
       preferences.putFloat("InfiltratorPositionX" + infiltratorNo.toString(), infiltratorPositionX);
       preferences.putFloat("InfiltratorPositionY" + infiltratorNo.toString(), infiltratorPositionY);
-      preferences.putString("InfiltratorState" + infiltratorNo.toString(), infiltratorsState);
       preferences.putBoolean("InfiltratorExposed" + infiltratorNo.toString(), exposed);
       preferences.flush();
     }

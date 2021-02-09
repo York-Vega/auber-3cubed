@@ -54,11 +54,16 @@ project(":desktop") {
 project(":core") {
     apply plugin: "java-library"
 
+    sourceSets.test.java.srcDirs = [ "test/" ]
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
 
+        testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        testCompile "org.mockito:mockito-all:1.9.+"
         testCompile "junit:junit:4.13"
     }
 

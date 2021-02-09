@@ -49,13 +49,18 @@ public class Projectile extends GameEntity {
    * */
   public void update(World world) {
     position.add(velocity);
+
+    if (Intersector.overlaps(world.player.sprite.getBoundingRectangle(), 
+                            sprite.getBoundingRectangle())) {
+      handleCollisionWithPlayer(world);
+      world.queueEntityRemove(this);
+      return;
+    } 
+
     for (GameEntity entity : world.getEntities()) {
       if (Intersector.overlaps(entity.sprite.getBoundingRectangle(),
-            sprite.getBoundingRectangle())
+                              sprite.getBoundingRectangle())
           && entity != originEntity && entity != this) {
-        if (entity instanceof Player) {
-          handleCollisionWithPlayer(world);
-        } 
         world.queueEntityRemove(this);
         return;
       }

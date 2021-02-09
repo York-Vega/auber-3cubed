@@ -16,11 +16,18 @@ import com.threecubed.auber.entities.Infiltrator;
 public class PowerUp extends GameEntity {
   /** Identifies the type of power up. */
   public enum Type {
-    IMMUNITY,
-    INVISIBILITY,
-    FIREWALL,
-    SPEED,
-    DETECT,
+    IMMUNITY(0),
+    INVISIBILITY(1),
+    FIREWALL(2),
+    SPEED(3),
+    DETECT(4);
+    private int value;
+    private Type(int value) {
+      this.value = value;
+    } 
+    public int getValue() {
+      return value; 
+    }
   }
 
   private Type powerType;
@@ -28,6 +35,7 @@ public class PowerUp extends GameEntity {
   private float timer;
   private boolean active;
   private boolean used;
+  private static String[] spriteNames = {"Immunity", "Invisible", "Firewalll", "Speed_Increase", "HighlightsInfiltrators"};
 
   /** 
    * Initialises power up.
@@ -38,7 +46,7 @@ public class PowerUp extends GameEntity {
    * @param powerType the type of power up it is.  
   */
   public PowerUp(final float x, final float y, final World world, final Type powerType) {
-    super(x, y, world.atlas.createSprite("projectile"));
+    super(x, y, world.atlas.createSprite(spriteNames[powerType.value]));
     this.powerType = powerType;
     duration = 10f;
     active = false;
@@ -64,11 +72,14 @@ public class PowerUp extends GameEntity {
         break;
       case FIREWALL:
         Infiltrator.canSabotage = false;
+        world.player.firewall = true;
         break;
       case SPEED:
         world.player.speed *= 1.5;
+        world.player.speedUp = true;
         break;
       case DETECT:
+      world.player.detect = true;
         for (GameEntity e : world.getEntities()) {
           if (e instanceof Infiltrator) {
             ((Infiltrator) e).expose(world);
@@ -118,7 +129,7 @@ public class PowerUp extends GameEntity {
     used = true;
     switch (powerType) {
       case IMMUNITY:
-        world.player.immune = true;
+        world.player.immune = false;
         break;
       case INVISIBILITY:
         world.player.invisible = false;
@@ -126,11 +137,14 @@ public class PowerUp extends GameEntity {
         break;
       case FIREWALL:
         Infiltrator.canSabotage = true;
+        world.player.firewall = false;
         break;
       case SPEED:
         world.player.speed /= 1.5;
+        world.player.speedUp = false; 
         break;
       case DETECT:
+      world.player.detect = false;
         for (GameEntity e : world.getEntities()) {
           if (e instanceof Infiltrator) {
             ((Infiltrator) e).unexpose(world);
@@ -140,5 +154,8 @@ public class PowerUp extends GameEntity {
       default:
         break;
     }
+  }
+  public boolean isActive() {
+    return this.active;
   }
 }

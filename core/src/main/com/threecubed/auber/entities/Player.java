@@ -42,6 +42,9 @@ public class Player extends GameEntity {
 
   public Boolean immune = false;
   public Boolean invisible = false;
+  public Boolean firewall = false;
+  public Boolean speedUp = false;
+  public Boolean detect = false;
 
   private ShapeRenderer rayRenderer = new ShapeRenderer();
 
@@ -58,10 +61,7 @@ public class Player extends GameEntity {
   public void update(World world) {
     if (!world.demoMode) {
       if (Gdx.input.isKeyJustPressed(Input.Keys.Q) || health <= 0) {
-        position.set(World.MEDBAY_COORDINATES[0], World.MEDBAY_COORDINATES[1]);
-        confused = false;
-        slowed = false;
-        teleporterRayCoordinates.setZero();
+        teleportToMedbay();
       }
 
       // Increment Auber's health if in medbay
@@ -138,30 +138,7 @@ public class Player extends GameEntity {
         }
       }
       if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-        // Interact with an object
-        RectangleMapObject nearbyObject = getNearbyObjects(World.map);
-
-        if (nearbyObject != null) {
-          MapProperties properties = nearbyObject.getProperties();
-          String type = properties.get("type", String.class);
-
-          switch (type) {
-            case "teleporter":
-              MapObjects objects = World.map.getLayers().get("object_layer").getObjects();
-
-              String linkedTeleporterId = properties.get("linked_teleporter", String.class);
-              RectangleMapObject linkedTeleporter = (RectangleMapObject) objects.get(
-                  linkedTeleporterId
-                  );
-              velocity.setZero();
-              position.x = linkedTeleporter.getRectangle().getX();
-              position.y = linkedTeleporter.getRectangle().getY();
-              break;
-
-            default:
-              break;
-          }
-        }
+        teleport();
       }
 
       Vector2 mousePosition = Utils.getMouseCoordinates(world.camera);
@@ -179,6 +156,46 @@ public class Player extends GameEntity {
       }
 
       move(velocity, World.map);  
+    }
+  }
+
+  /**
+   * Teleports the player to the medbay.
+   */
+  public void teleportToMedbay() {
+    position.set(World.MEDBAY_COORDINATES[0], World.MEDBAY_COORDINATES[1]);
+    confused = false;
+    slowed = false;
+    teleporterRayCoordinates.setZero();
+  }
+
+  /**
+   * Teleports player to the next teleporter if the player is on a telepad.  
+   */
+  public void teleport() {
+    // Interact with an object
+    RectangleMapObject nearbyObject = getNearbyObjects(World.map);
+
+    if (nearbyObject != null) {
+      MapProperties properties = nearbyObject.getProperties();
+      String type = properties.get("type", String.class);
+
+      switch (type) {
+        case "teleporter":
+          MapObjects objects = World.map.getLayers().get("object_layer").getObjects();
+
+          String linkedTeleporterId = properties.get("linked_teleporter", String.class);
+          RectangleMapObject linkedTeleporter = (RectangleMapObject) objects.get(
+              linkedTeleporterId
+              );
+          velocity.setZero();
+          position.x = linkedTeleporter.getRectangle().getX();
+          position.y = linkedTeleporter.getRectangle().getY();
+          break;
+
+        default:
+          break;
+      }
     }
   }
 

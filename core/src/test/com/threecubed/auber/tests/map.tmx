@@ -236,31 +236,31 @@
   <object id="27" type="medbay" x="16" y="32" width="176" height="112"/>
  </objectgroup>
  <objectgroup id="9" name="power_ups">
-  <object id="39" name="Immunity" x="96" y="400">
+  <object id="39" name="Immunity" x="103.698" y="393.367">
    <properties>
     <property name="type" type="int" value="0"/>
    </properties>
    <point/>
   </object>
-  <object id="40" name="Invisibility" x="128" y="576">
+  <object id="40" name="Invisibility" x="150.834" y="568.197">
    <properties>
     <property name="type" type="int" value="1"/>
    </properties>
    <point/>
   </object>
-  <object id="41" name="Firewall" x="672" y="688">
+  <object id="41" name="Firewall" x="681.323" y="680.466">
    <properties>
     <property name="type" type="int" value="2"/>
    </properties>
    <point/>
   </object>
-  <object id="42" name="Speed" x="688" y="144">
+  <object id="42" name="Speed" x="695.892" y="135.408">
    <properties>
     <property name="type" type="int" value="3"/>
    </properties>
    <point/>
   </object>
-  <object id="43" name="Detect" x="288" y="192">
+  <object id="43" name="Detect" x="296.525" y="184.257">
    <properties>
     <property name="type" type="int" value="4"/>
    </properties>

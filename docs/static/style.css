@@ -85,6 +85,11 @@ a:hover {
     color: white;
 }
 
+#logo {
+    max-width: 200px;
+    margin: 20px;
+}
+
 .columnContainer {
     display: flex;
     flex-direction: row;

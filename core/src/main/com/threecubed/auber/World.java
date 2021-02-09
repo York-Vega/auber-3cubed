@@ -35,10 +35,12 @@ import java.util.Random;
 public class World {
   private AuberGame game;
 
+
   public DataManager dataManager;
 
   public Player player;
   public int infiltratorCount;
+  public static boolean userWon = true;
 
   public boolean demoMode = false;
 
@@ -52,6 +54,7 @@ public class World {
   public OrthographicCamera camera = new OrthographicCamera();
 
   public static final TiledMap map = new TmxMapLoader().load("map.tmx");
+
   public static final TiledMapTileSet tileset = map.getTileSets().getTileSet(0);
   public TextureAtlas atlas;
 
@@ -60,12 +63,12 @@ public class World {
   public static ArrayList<RectangleMapObject> systems = new ArrayList<>();
   public RectangleMapObject medbay;
   public ArrayList<float[]> spawnLocations = new ArrayList<>();
-  public  static HashMap<String, Enum<SystemStates>> systemStatesMap;
+  public static HashMap<String, Enum<SystemStates>> systemStatesMap;
 
   public final Random randomNumberGenerator = new Random();
 
   // ------------------NAVIGATION----------------
-  public final NavigationMesh navigationMesh = new NavigationMesh(
+  public NavigationMesh navigationMesh = new NavigationMesh(
       (TiledMapTileLayer) map.getLayers().get("navigation_layer")
       );
   public ArrayList<float[]> fleePoints = new ArrayList<>();
@@ -73,7 +76,7 @@ public class World {
   /** Coordinates for the bottom left and top right tiles of the brig. */
   public static final float[][] BRIG_BOUNDS = {{240f, 608f}, {352f, 640f}};
   /** Coordinates for the medbay teleporter. */
-  public static final float[] MEDBAY_COORDINATES = {96f, 640f};
+  public static float[] MEDBAY_COORDINATES = {96f, 640f};
 
   // --------------------AUBER-------------------
   public float auberTeleporterCharge = 0f;
@@ -207,6 +210,7 @@ public class World {
     systemStatesMap = new HashMap<>();
     atlas = game.atlas;
 
+
     // Configure the camera
     camera.setToOrtho(false, 480, 270);
     camera.update();
@@ -216,7 +220,7 @@ public class World {
       queueEntityAdd(player);
       this.player = player;
     } else {
-      Player player = new Player(64f, 64f, this);
+      Player player = generatePlayer();
       queueEntityAdd(player);
       this.player = player;
     }
@@ -423,6 +427,10 @@ public class World {
     }
   }
 
+  public Player generatePlayer(){
+    return new Player(64,64, this);
+  }
+
   /**
    * Return the state of a system, given the coordinates of the system object (not the tile).
    *
@@ -484,4 +492,20 @@ public class World {
       game.setScreen(new GameOverScreen(game, true));
     }
   }
+
+  /**
+   * simplified check for end state. only used with test module.
+   * @param test Boolean
+   * @return Boolean user win or not
+   */
+  public boolean checkForEndState(boolean test){
+    if (systems.size() == 0 ) {
+      userWon = false;
+    } else if (infiltratorCount <= 0) {
+      userWon = true;
+    }
+    return userWon;
+  }
+
+
 }

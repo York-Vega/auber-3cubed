@@ -3,7 +3,7 @@ sourceCompatibility = 1.7
 
 sourceSets.main.java.srcDirs = [ "src/main/" ]
 sourceSets.test.java.srcDirs = [ "src/test/" ]
-
+sourceSets.test.resources.srcDirs = ["../core/assets"]
 eclipse.project.name = appName + "-core"
 
 test {

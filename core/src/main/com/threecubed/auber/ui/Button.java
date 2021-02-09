@@ -17,8 +17,8 @@ import com.threecubed.auber.AuberGame;
  * @since 1.0
  * */
 public class Button {
-  Pixmap pixmap;
   Sprite sprite;
+  Pixmap pixmap;
   AuberGame game;
   Vector2 position;
   Runnable onClick;
@@ -42,6 +42,11 @@ public class Button {
 
     this.position = new Vector2(sprite.getX(), sprite.getY());
     this.game = game;
+  }
+
+  public void setSprite(Sprite sprite) {
+    this.sprite = sprite;
+    sprite.setPosition(position.x , position.y);
   }
 
   /**

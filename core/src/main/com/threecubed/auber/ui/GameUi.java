@@ -24,7 +24,7 @@ public class GameUi {
   private static final int HEALTHBAR_MAX_HEIGHT = 100;
 
   private static final Vector2 HEALTH_WARNINGS_POSITION = new Vector2(350f, 70f);
-
+  private static final Vector2 POWER_NAME_POSITION = new Vector2(50f, 150f);
   private static final Vector2 SYSTEM_WARNINGS_POSITION = new Vector2(1750f, 50f);
 
   private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -57,6 +57,7 @@ public class GameUi {
     drawHealthbar(world, screenBatch);
     drawHealthWarnings(world, screenBatch);
     drawSystemWarnings(world, screenBatch);
+    drawPowerName(world, screenBatch);
   }
 
   /**
@@ -130,6 +131,38 @@ public class GameUi {
     if (world.player.blinded) {
       uiFont.draw(screenBatch, "BLINDED", HEALTH_WARNINGS_POSITION.x,
           HEALTH_WARNINGS_POSITION.y + 40f);
+    }
+    uiFont.setColor(Color.WHITE);
+    screenBatch.end();
+  }
+
+  /**
+   * Draw any power up name for Auber to the screen.
+   *
+   * @param world The game world
+   * @param screenBatch The batch to draw to
+   * */
+  private void drawPowerName(World world, SpriteBatch screenBatch) {
+    screenBatch.begin();
+    uiFont.setColor(Color.GREEN);
+    if (world.player.immune) {
+      uiFont.draw(screenBatch, "IMMUNITY", POWER_NAME_POSITION.x, POWER_NAME_POSITION.y);
+    }
+    if (world.player.invisible) {
+      uiFont.draw(screenBatch, "INVISIBILITY", POWER_NAME_POSITION.x,
+      POWER_NAME_POSITION.y + 20f);
+    }
+    if (world.player.firewall) {
+      uiFont.draw(screenBatch, "FIREWALL", POWER_NAME_POSITION.x,
+      POWER_NAME_POSITION.y + 40f);
+    }
+    if (world.player.speedUp) {
+      uiFont.draw(screenBatch, "SPEED", POWER_NAME_POSITION.x,
+      POWER_NAME_POSITION.y + 60f);
+    }
+    if (world.player.detect) {
+      uiFont.draw(screenBatch, "DETECT", POWER_NAME_POSITION.x,
+      POWER_NAME_POSITION.y + 80f);
     }
     uiFont.setColor(Color.WHITE);
     screenBatch.end();

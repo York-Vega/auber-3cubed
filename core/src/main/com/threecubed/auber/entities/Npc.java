@@ -298,6 +298,10 @@ public abstract class Npc extends GameEntity {
     }, World.NPC_FLEE_TIME);
   }
 
+  public ArrayList<Vector2> getCurrentPath() {
+    return this.currentPath;
+  }
+
   public States getState() {
     return state;
   }

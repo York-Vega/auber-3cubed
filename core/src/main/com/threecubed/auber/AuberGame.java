@@ -10,7 +10,7 @@ public class AuberGame extends Game {
 
   @Override
   public void create() {
-    atlas = new TextureAtlas("auber.atlas");
+    atlas = new TextureAtlas("auber_.atlas");
     Gdx.graphics.setWindowedMode(1920, 1080);
     setScreen(new MenuScreen(this));
   }
